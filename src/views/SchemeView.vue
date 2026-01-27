@@ -16,7 +16,7 @@ const page = ref<PagedResult<MutualFundScheme>>({
 })
 const error = ref<string | null>(null)
 
-  async function getMutualFundSchemes(pageNumber = 1) {
+async function getMutualFundSchemes(pageNumber = 1) {
   error.value = null
   try {
     const res: Response<MutualFundScheme> = await fetchFunds(pageNumber)
