@@ -8,6 +8,7 @@ import { RouterLink, RouterView } from 'vue-router'
       <nav>
         <RouterLink to="/schemes">Schemes</RouterLink>
       </nav>
+      <v-btn color="blue-darken-4">Vuetify</v-btn>
     </div>
   </header>
   <RouterView />

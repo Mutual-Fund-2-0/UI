@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import type { MutualFundScheme } from '@t/scheme'
 import type { PagedResult } from '@t/page'
-import { fetchFunds } from '@s/mutualFundService'
 import type { Response } from '@t/Response'
+import type { MutualFundScheme } from '@t/scheme'
+import { fetchFunds } from '@s/mutualFundService'
+import { onMounted, ref } from 'vue'
 
 const page = ref<PagedResult<MutualFundScheme>>({
   items: [],
@@ -22,8 +22,8 @@ async function getMutualFundSchemes(pageNumber = 1) {
     const res: Response<MutualFundScheme> = await fetchFunds(pageNumber)
     if (!res || !res.page) throw new Error('Invalid API response shape')
     page.value = res.page
-  } catch (err: unknown) {
-    error.value = err instanceof Error ? err.message : String(err)
+  } catch (error_: unknown) {
+    error.value = error_ instanceof Error ? error_.message : String(error_)
   }
 }
 
@@ -38,7 +38,7 @@ onMounted(() => getMutualFundSchemes(1))
       <h1>Mutual Fund Schemes</h1>
     </header>
     <div v-if="error" class="state error"><strong>Error:</strong> {{ error }}</div>
-    <table v-else class="table" aria-live="polite">
+    <table v-else aria-live="polite" class="table">
       <thead>
         <tr>
           <th>Fund House</th>
@@ -62,7 +62,7 @@ onMounted(() => getMutualFundSchemes(1))
         </tr>
       </tbody>
     </table>
-    <nav class="pager" v-if="!error">
+    <nav v-if="!error" class="pager">
       <button :disabled="!page.hasPreviousPage" @click="goTo(page.pageNumber - 1)">Previous</button>
       <span>PagedResult {{ page.pageNumber }} / {{ page.totalPages }}</span>
       <button :disabled="!page.hasNextPage" @click="goTo(page.pageNumber + 1)">Next</button>
