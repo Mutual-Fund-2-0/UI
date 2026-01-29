@@ -14,9 +14,9 @@
 // https://on.cypress.io/configuration
 // ***********************************************************
 
+import { mount } from 'cypress/vue'
 // Import commands.js using ES2015 syntax:
 import './commands'
-import { mount } from 'cypress/vue'
 
 // Augment the Cypress namespace to include type definitions for
 // your custom command.
