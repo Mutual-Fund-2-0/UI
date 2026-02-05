@@ -11,9 +11,9 @@ const router = createRouter({
     {
       path: '/schemes',
       name: 'schemes',
-      component: () => import('@v/SchemeView.vue'),
-    },
-  ],
+      component: () => import('@v/SchemeView.vue')
+    }
+  ]
 })
 
 export default router
