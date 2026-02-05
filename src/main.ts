@@ -5,8 +5,8 @@ import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 import App from './App.vue'
 import router from './router'
-import './assets/main.css'
 import 'vuetify/styles'
+import './assets/main.css'
 
 const vuetify = createVuetify({
   components,
