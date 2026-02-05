@@ -3,7 +3,7 @@ import type { MutualFundScheme } from '@t/scheme'
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 
-export async function fetchFunds(page: number): Promise<Response<MutualFundScheme>> {
+export async function fetchFunds(page = 1): Promise<Response<MutualFundScheme>> {
   const url = `${API_BASE_URL}/MutualFund/schemes?pageNumber=${encodeURIComponent(page)}`
   const res = await fetch(url, {
     method: 'GET',
