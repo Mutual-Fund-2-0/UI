@@ -1,8 +1,9 @@
-export interface PagedResult<T> {
-  items: T[]
+import { MutualFundScheme } from "./scheme"
+
+export interface PagedResult {
+  schemes: MutualFundScheme[]
   totalCount: number
   pageNumber: number
-  pageSize: number
   totalPages: number
   hasNextPage: boolean
   hasPreviousPage: boolean

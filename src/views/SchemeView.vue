@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import type { PagedResult } from '@t/page'
-import type { Response } from '@t/Response'
-import type { MutualFundScheme } from '@t/scheme'
 import { fetchFunds } from '@s/mutualFundService'
 import { onMounted, ref } from 'vue'
 
-let totalCount: number
-const page = ref<PagedResult<MutualFundScheme>>({
-  items: [],
+const pageSize = 10
+const error = ref<string | null>(null)
+const sortBy = ref([])
+const page = ref<PagedResult>({
+  schemes: [],
   totalCount: 0,
   pageNumber: 1,
   pageSize: 10,

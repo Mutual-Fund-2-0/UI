@@ -1,5 +1,4 @@
-import type { Response } from '@t/Response'
-import type { MutualFundScheme } from '@t/scheme'
+import type { PagedResult } from '@t/page'
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 
@@ -15,6 +14,6 @@ export async function fetchFunds(page = 1): Promise<Response<MutualFundScheme>> 
     const text = await res.text().catch(() => '')
     throw new Error(`API error: ${res.status} ${res.statusText} ${text ? `- ${text}` : ''}`)
   }
-  const json = (await res.json()) as Response<MutualFundScheme>
+  const json = (await res.json()) as PagedResult
   return json
 }
