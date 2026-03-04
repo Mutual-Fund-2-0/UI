@@ -9,38 +9,34 @@ const sortBy = ref([])
 const page = ref<PagedResult>({
   schemes: [],
   totalCount: 0,
-  pageNumber: 1,
-  pageSize: 10,
+  pageNumber: 0,
   totalPages: 0,
   hasNextPage: false,
   hasPreviousPage: false,
 })
-const error = ref<string | null>(null)
 const headers = [
-  { title: 'Fund House', key: 'fundHouse' },
-  { title: 'Scheme Name', key: 'schemeName' },
-  { title: 'Scheme Type', key: 'schemeType' },
-  { title: 'Scheme Category', key: 'schemeCategory' },
-  { title: 'Scheme Code', key: 'schemeCode' },
-  { title: 'ISIN (Growth)', key: 'isinGrowth' },
-  { title: 'ISIN (Div Reinvest)', key: 'isinDivReinvestment' },
+  { title: 'Scheme Code', key: 'code' },
+  { title: 'Scheme Name', key: 'name' },
+  { title: 'Fund House', key: 'house' },
+  { title: 'Scheme Category', key: 'category' },
+  { title: 'Scheme Sub-Category', key: 'subCategory' },
+  { title: 'Scheme Plan', key: 'plan' },
+  { title: 'Scheme Type', key: 'type' }
 ]
 
 onMounted(() => goTo(1))
 
-const start = 1
+const start = () => (page.value.pageNumber - 1) * pageSize + 1
 
-const end = 10
+const end = () => Math.min(page.value.pageNumber * pageSize, page.value.totalCount)
 
-const goTo = (n: number) => getMutualFundSchemes(n)
+const goTo = (pageNumber: number) => getMutualFundSchemes(pageNumber)
 
 async function getMutualFundSchemes(pageNumber: number) {
-  error.value = null
   try {
-    const res: Response<MutualFundScheme> = await fetchFunds(pageNumber)
-    if (!res || !res.page) throw new Error('Invalid API response shape')
-    page.value = res.page
-    totalCount = page.value.totalCount
+    const response: PagedResult = await fetchFunds(pageNumber)
+    if (!response) throw new Error('Invalid API response shape')
+    page.value = response
   } catch (error_: unknown) {
     error.value = error_ instanceof Error ? error_.message : String(error_)
   }
@@ -69,34 +65,13 @@ async function getMutualFundSchemes(pageNumber: number) {
 
         <v-card class="pa-3 mb-2" elevation="1">
           <v-data-table
+            v-model:sort-by="sortBy"
             :headers="headers"
             hide-default-footer
-            item-key="schemeCode"
-            :items="page.items"
-          >
-            <template #item.fundHouse="{ item }">
-              <div>{{ item.fundHouse }}</div>
-            </template>
-
-            <template #item.schemeName="{ item }">
-              <div>{{ item.schemeName }}</div>
-            </template>
-            <template #item.schemeType="{ item }">
-              <div>{{ item.schemeType }}</div>
-            </template>
-            <template #item.schemeCategory="{ item }">
-              <div>{{ item.schemeCategory }}</div>
-            </template>
-            <template #item.schemeCode="{ item }">
-              <div>{{ item.schemeCode }}</div>
-            </template>
-            <template #item.isinGrowth="{ item }">
-              <div>{{ item.isinGrowth }}</div>
-            </template>
-            <template #item.isinDivReinvestment="{ item }">
-              <div>{{ item.isinDivReinvestment }}</div>
-            </template>
-          </v-data-table>
+            item-key="code"
+            :items="page.schemes"
+            :must-sort="true"
+          />
 
           <v-divider />
 
@@ -111,7 +86,7 @@ async function getMutualFundSchemes(pageNumber: number) {
               variant="plain"
               @update:model-value="goTo"
             />
-            <div>{{ start }} - {{ end }} of {{ totalCount }}</div>
+            <div>{{ start() }} - {{ end() }} of {{ page.totalCount }}</div>
           </div>
         </v-card>
       </v-container>
@@ -145,4 +120,8 @@ async function getMutualFundSchemes(pageNumber: number) {
 
 .table-footer
   padding-top 2px
+
+:deep(.v-data-table__th--sortable:hover),
+:deep(.v-data-table__th--sorted)
+  color grey !important
 </style>
