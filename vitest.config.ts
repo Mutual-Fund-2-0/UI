@@ -6,9 +6,13 @@ export default mergeConfig(
   viteConfig,
   defineConfig({
     test: {
+      clearMocks: true,
+      css: true,
       environment: 'jsdom',
-      exclude: [...configDefaults.exclude, 'e2e/**'],
-      root: fileURLToPath(new URL('./', import.meta.url))
+      exclude: [...configDefaults.exclude],
+      globals: true,
+      root: fileURLToPath(new URL('./', import.meta.url)),
+      setupFiles: ['./src/setupTests.ts']
     }
   })
 )

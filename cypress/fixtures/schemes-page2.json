@@ -1,0 +1,27 @@
+{
+  "schemes": [
+    {
+      "code": 3,
+      "name": "Equity Fund 3",
+      "house": "Test AMC",
+      "category": "Equity",
+      "subCategory": "Large Cap",
+      "plan": "Growth",
+      "type": "Open Ended"
+    },
+    {
+      "code": 4,
+      "name": "Equity Fund 4",
+      "house": "Test AMC",
+      "category": "Equity",
+      "subCategory": "Mid Cap",
+      "plan": "Growth",
+      "type": "Open Ended"
+    }
+  ],
+  "totalCount": 4,
+  "pageNumber": 2,
+  "totalPages": 2,
+  "hasNextPage": false,
+  "hasPreviousPage": true
+}

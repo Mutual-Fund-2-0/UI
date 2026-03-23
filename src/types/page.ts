@@ -1,4 +1,4 @@
-import { MutualFundScheme } from "./scheme"
+import type { MutualFundScheme } from './scheme'
 
 export interface PagedResult {
   schemes: MutualFundScheme[]

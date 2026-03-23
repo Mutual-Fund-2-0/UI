@@ -9,6 +9,7 @@ import Vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 
 // https://vite.dev/config/
 export default defineConfig({
+  root: '.',
   plugins: [
     vue({
       template: { transformAssetUrls }
@@ -60,10 +61,5 @@ export default defineConfig({
       '.tsx',
       '.vue',
     ]
-  },
-  test: {
-    environment: 'jsdom',
-    globals: true,
-    setupFiles: ''
   }
 })

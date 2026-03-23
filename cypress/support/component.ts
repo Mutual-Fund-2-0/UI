@@ -13,8 +13,9 @@
 // You can read more here:
 // https://on.cypress.io/configuration
 // ***********************************************************
-
 import { mount } from 'cypress/vue'
+import { createVuetify } from 'vuetify'
+import 'vuetify/styles'
 // Import commands.js using ES2015 syntax:
 import './commands'
 
@@ -29,7 +30,13 @@ declare global {
     }
   }
 }
-Cypress.Commands.add('mount', mount)
 
+const vuetify = createVuetify()
+
+Cypress.Commands.add('mount', (component, options = {}) => {
+  options.global = options.global || {}
+  options.global.plugins = [...(options.global.plugins || []), vuetify]
+  return mount(component, options)
+})
 // Example use:
 // cy.mount(MyComponent)

@@ -3,7 +3,7 @@ import skipFormatting from '@vue/eslint-config-prettier/skip-formatting'
 import { defineConfigWithVueTs, vueTsConfigs } from '@vue/eslint-config-typescript'
 import vuetify from 'eslint-config-vuetify'
 import pluginOxlint from 'eslint-plugin-oxlint'
-import pluginPlaywright from 'eslint-plugin-playwright'
+import pluginCypress from 'eslint-plugin-cypress'
 import pluginVue from 'eslint-plugin-vue'
 import { globalIgnores } from 'eslint/config'
 
@@ -23,8 +23,8 @@ export default defineConfigWithVueTs(
   ...pluginVue.configs['flat/essential'],
   vueTsConfigs.recommended,
   {
-    ...pluginPlaywright.configs['flat/recommended'],
-    files: ['e2e/**/*.{test,spec}.{js,ts,jsx,tsx}']
+    ...pluginCypress.configs.recommended,
+    files: ['cypress/**/*.cy.{js,ts}']
   },
   {
     ...pluginVitest.configs.recommended,

@@ -3,10 +3,12 @@ import type { PagedResult } from '@t/page'
 import { fetchFunds } from '@s/mutualFundService'
 import { onMounted, ref } from 'vue'
 
-const pageSize = 10
+const page = ref<PagedResult | null>(null)
+defineExpose({ page })
+
 const error = ref<string | null>(null)
 const sortBy = ref([])
-const page = ref<PagedResult>({
+const pageResult = ref<PagedResult>({
   schemes: [],
   totalCount: 0,
   pageNumber: 0,
@@ -15,20 +17,21 @@ const page = ref<PagedResult>({
   hasPreviousPage: false,
 })
 const headers = [
-  { title: 'Scheme Code', key: 'code' },
   { title: 'Scheme Name', key: 'name' },
   { title: 'Fund House', key: 'house' },
   { title: 'Scheme Category', key: 'category' },
   { title: 'Scheme Sub-Category', key: 'subCategory' },
   { title: 'Scheme Plan', key: 'plan' },
-  { title: 'Scheme Type', key: 'type' }
+  { title: 'Scheme Type', key: 'type' },
 ]
 
 onMounted(() => goTo(1))
 
-const start = () => (page.value.pageNumber - 1) * pageSize + 1
+const pageSize = (): number => pageResult.value.schemes.length
 
-const end = () => Math.min(page.value.pageNumber * pageSize, page.value.totalCount)
+const start = (): number => (pageResult.value.pageNumber - 1) * pageSize() + 1
+
+const end = (): number => Math.min(pageResult.value.pageNumber * pageSize(), pageResult.value.totalCount)
 
 const goTo = (pageNumber: number) => getMutualFundSchemes(pageNumber)
 
@@ -36,12 +39,11 @@ async function getMutualFundSchemes(pageNumber: number) {
   try {
     const response: PagedResult = await fetchFunds(pageNumber)
     if (!response) throw new Error('Invalid API response shape')
-    page.value = response
+    pageResult.value = response
   } catch (error_: unknown) {
     error.value = error_ instanceof Error ? error_.message : String(error_)
   }
 }
-
 </script>
 
 <template>
@@ -69,7 +71,7 @@ async function getMutualFundSchemes(pageNumber: number) {
             :headers="headers"
             hide-default-footer
             item-key="code"
-            :items="page.schemes"
+            :items="pageResult.schemes"
             :must-sort="true"
           />
 
@@ -80,13 +82,13 @@ async function getMutualFundSchemes(pageNumber: number) {
               active-color="whitesmoke"
               color="grey"
               density="compact"
-              :length="page.totalPages"
+              :length="pageResult.totalPages"
               rounded="circle"
               total-visible="5"
               variant="plain"
               @update:model-value="goTo"
             />
-            <div>{{ start() }} - {{ end() }} of {{ page.totalCount }}</div>
+            <div>{{ start() }} - {{ end() }} of {{ pageResult.totalCount }}</div>
           </div>
         </v-card>
       </v-container>
