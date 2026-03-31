@@ -10,6 +10,7 @@
     "dev": "vite",
     "test:unit": "vitest",
     "test:component": "npx cypress open --component",
+    "cypress:e2e": "npx cypress open --e2e",
     "test:e2e": "start-server-and-test dev http://localhost:5173 cypress:e2e",
     "type-check": "vue-tsc --build",
     "lint": "run-s lint:*",
