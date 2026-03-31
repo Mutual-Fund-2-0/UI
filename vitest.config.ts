@@ -7,12 +7,16 @@ export default mergeConfig(
   defineConfig({
     test: {
       clearMocks: true,
-      css: true,
       environment: 'jsdom',
       exclude: [...configDefaults.exclude],
       globals: true,
       root: fileURLToPath(new URL('./', import.meta.url)),
-      setupFiles: ['./src/setupTests.ts']
+      setupFiles: ['vitest.setup.ts'],
+      server: {
+        deps: {
+          inline: ['vuetify']
+        }
+      }
     }
   })
 )

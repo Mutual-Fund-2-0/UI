@@ -1,3 +1,5 @@
+/// <reference types="cypress" />
+
 export default {
   env: {
     "cypress/globals": true
@@ -10,9 +12,7 @@ export default {
   },
   e2e: {
     baseUrl: "http://localhost:5173",
-    pageLoadTimeout: 120_000,
-    setupNodeEvents(on, config) {
-      // implement node event listeners here
+    setupNodeEvents(_on: Cypress.PluginEvents, config: Cypress.PluginConfigOptions) {
       return config
     }
   }
