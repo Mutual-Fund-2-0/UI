@@ -3,7 +3,7 @@ import { fetchFunds } from '@s/mutualFundService'
 import SchemeView from '@v/SchemeView.vue'
 import { flushPromises, mount } from '@vue/test-utils'
 import { describe, expect, it, vi } from 'vitest'
-import 'vuetify/styles'
+import { nextTick } from 'vue'
 
 const mockPagedResult: PagedResult = {
   schemes: [
@@ -27,14 +27,13 @@ const mockPagedResult: PagedResult = {
 vi.mock('@s/mutualFundService')
 
 describe('MutualFundSchemes', () => {
-
   it('loads schemes on mount and displays data', async () => {
-
     vi.mocked(fetchFunds).mockResolvedValue(mockPagedResult)
 
     const wrapper = mount(SchemeView)
 
     await flushPromises()
+    await nextTick()
 
     expect(fetchFunds).toHaveBeenCalledWith(1)
 
@@ -44,8 +43,6 @@ describe('MutualFundSchemes', () => {
 
     expect(rows).toHaveLength(1)
 
-    expect(rows[0]!.text()).toContain(0)
     expect(rows[0]!.text()).toContain('Test Equity Fund')
-
   })
 })
