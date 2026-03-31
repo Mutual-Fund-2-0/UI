@@ -40,11 +40,13 @@ describe('API:fetchFunds', () => {
 
   it('FetchFunds:500', async () => {
     global.fetch = vi.fn().mockResolvedValue({
-        ok: false,
-        status: 500,
-        statusText: 'Internal Server Error',
-        text: vi.fn().mockResolvedValue('Server down'),
-      } as unknown as Response)
-    await expect(fetchFunds(1)).rejects.toThrow('API error: 500 Internal Server Error - Server down')
+      ok: false,
+      status: 500,
+      statusText: 'Internal Server Error',
+      text: vi.fn().mockResolvedValue('Server down'),
+    } as unknown as Response)
+    await expect(fetchFunds(1)).rejects.toThrow(
+      'API error: 500 Internal Server Error - Server down',
+    )
   })
 })
