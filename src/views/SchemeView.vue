@@ -3,17 +3,16 @@ import type { PagedResult } from '@t/page'
 import { fetchFunds } from '@s/mutualFundService'
 import { onMounted, ref } from 'vue'
 
-
 const error = ref<string | null>(null)
-  const sortBy = ref([])
-  const page = ref<PagedResult>({
-    schemes: [],
-    totalCount: 0,
-    pageNumber: 0,
-    totalPages: 0,
-    hasNextPage: false,
-    hasPreviousPage: false,
-  })
+const sortBy = ref([])
+const page = ref<PagedResult>({
+  schemes: [],
+  totalCount: 0,
+  pageNumber: 0,
+  totalPages: 0,
+  hasNextPage: false,
+  hasPreviousPage: false,
+})
 defineExpose({ page })
 const headers = [
   { title: 'Scheme Name', key: 'name' },
