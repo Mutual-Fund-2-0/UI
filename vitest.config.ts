@@ -8,7 +8,7 @@ export default mergeConfig(
     test: {
       clearMocks: true,
       environment: 'jsdom',
-      exclude: [...configDefaults.exclude],
+      exclude: [...configDefaults.exclude, 'cypress/**', '**/*.cy.{js,ts,jsx,tsx}'],
       globals: true,
       root: fileURLToPath(new URL('./', import.meta.url)),
       setupFiles: ['vitest.setup.ts'],

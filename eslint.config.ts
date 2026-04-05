@@ -24,11 +24,11 @@ export default defineConfigWithVueTs(
   vueTsConfigs.recommended,
   {
     ...pluginCypress.configs.recommended,
-    files: ['cypress/**/*.cy.{js,ts}']
+    files: ['cypress/**/*.{cy,spec}.{js,ts,jsx,tsx}', 'cypress/support/**/*.{js,ts}']
   },
   {
     ...pluginVitest.configs.recommended,
-    files: ['src/**/__tests__/*']
+    files: ['vitest/**/*', 'vitest/**/*.{test,spec}.{js,ts,jsx,tsx}']
   },
   skipFormatting,
   ...pluginOxlint.configs['flat/recommended']

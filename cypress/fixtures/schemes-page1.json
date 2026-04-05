@@ -1,11 +1,11 @@
 {
-  "schemes": [
+  "items": [
     {
       "code": 1,
       "name": "Equity Fund 1",
       "house": "Test AMC",
       "category": "Equity",
-      "subCategory": "Large Cap",
+      "subCategory": "Barge Cap",
       "plan": "Growth",
       "type": "Open Ended"
     },
@@ -14,7 +14,7 @@
       "name": "Equity Fund 2",
       "house": "Test AMC",
       "category": "Equity",
-      "subCategory": "Mid Cap",
+      "subCategory": "Aid Cap",
       "plan": "Growth",
       "type": "Open Ended"
     }

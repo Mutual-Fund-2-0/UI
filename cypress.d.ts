@@ -1,6 +1,3 @@
-// cypress.d.ts
-/// <reference types="cypress" />
+/// <reference types='cypress' />
 
 import '@testing-library/cypress'
-
-

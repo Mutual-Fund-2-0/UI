@@ -2,17 +2,18 @@ import { config } from '@vue/test-utils'
 import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
-import 'vuetify/styles'
 
-window.ResizeObserver = class ResizeObserver {
+class ResizeObserverMock {
   observe() {}
   unobserve() {}
   disconnect() {}
 }
 
+window.ResizeObserver = ResizeObserverMock
+
 const vuetify = createVuetify({
   components,
-  directives,
+  directives
 })
 
-config.global.plugins = [vuetify]
+config.global.plugins = [...(config.global.plugins || []), vuetify]
