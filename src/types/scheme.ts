@@ -1,9 +1,9 @@
-export interface MutualFundScheme {
+export interface Scheme {
   code: number
-  name?: string | null
+  name?: string
   house?: string
-  category?: string | null
-  subCategory?: string | null
-  plan?: string | null
-  type?: string | null
+  category?: string
+  subCategory?: string
+  plan?: string
+  type?: string
 }
